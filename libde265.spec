@@ -55,7 +55,8 @@ Sample applications using libde265 are provided by this package.
 
 
 %prep
-%autosetup
+%setup -q
+%patch0 -p1
 
 %build
 %configure --disable-silent-rules --disable-static --enable-shared
