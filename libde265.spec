@@ -15,6 +15,9 @@ BuildRequires:	pkgconfig(QtCore)
 BuildRequires:	pkgconfig(QtGui)
 BuildRequires:	pkgconfig(sdl)
 
+# Fix compatibiliy when compiling against FFmpeg 2.9 and newer.
+Patch0:		ffmpeg_2.9.patch
+
 
 %description
 libde265 is an open source implementation of the H.265 video codec.
@@ -96,5 +99,8 @@ rm %{buildroot}%{_bindir}/yuv-distortion
 %{_bindir}/libde265-sherlock265
 
 %changelog
+* Tue Jul 19 2016 Joachim Bauch <bauch@struktur.de> 1.0.2-2
+- Fixed compatibility when compiling against FFmpeg 2.9 and newer.
+
 * Thu Jun 09 2016 Joachim Bauch <bauch@struktur.de> 1.0.2-1
 - Initial version.
