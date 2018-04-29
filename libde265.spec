@@ -1,7 +1,7 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
-Version:	1.0.2
-Release:	8%{?dist}
+Version:	1.0.3
+Release:	1%{?dist}
 License:	LGPLv3+
 Group:		System Environment/Libraries
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ rm %{buildroot}%{_bindir}/yuv-distortion
 %{_bindir}/libde265-sherlock265
 
 %changelog
+* Sun Apr 29 2018 Sérgio Basto <sergio@serjux.com> - 1.0.3-1
+- Update to 1.0.3
+
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
