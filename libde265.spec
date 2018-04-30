@@ -98,10 +98,12 @@ rm %{buildroot}%{_bindir}/yuv-distortion
 %doc README.md
 %{_bindir}/libde265-dec265
 %{_bindir}/libde265-sherlock265
+%{_bindir}/acceleration_speed
 
 %changelog
 * Sun Apr 29 2018 Sérgio Basto <sergio@serjux.com> - 1.0.3-1
 - Update to 1.0.3
+- Add the new /usr/bin file to examples package
 
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
