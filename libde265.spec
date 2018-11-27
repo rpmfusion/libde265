@@ -1,18 +1,17 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
 Version:	1.0.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPLv3+
-Group:		System Environment/Libraries
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
 URL:		http://www.libde265.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gcc-c++
 BuildRequires:	libtool
-BuildRequires:	pkgconfig
 BuildRequires:	pkgconfig(libswscale)
-BuildRequires:	pkgconfig(QtCore)
-BuildRequires:	pkgconfig(QtGui)
+BuildRequires:	pkgconfig(Qt5Core)
+BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(sdl)
 
 # Fix compatibiliy when compiling against FFmpeg 2.9 and newer.
@@ -26,7 +25,6 @@ API makes it easy to integrate it into other software.
 
 
 %package devel
-Group:		Development/Libraries
 Summary:	Open H.265 video codec implementation - development files
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -42,7 +40,6 @@ are provided by this package.
 %package examples
 # The entire examples source code is GPLv3+ except extra/getopt* which is BSD.
 License:	GPLv3+ and BSD
-Group:		Applications/Multimedia
 Summary:	Open H.265 video codec implementation - examples
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -55,14 +52,13 @@ Sample applications using libde265 are provided by this package.
 
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -p1
 
 %build
 %configure --disable-silent-rules --disable-static --enable-shared
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
@@ -80,8 +76,7 @@ rm %{buildroot}%{_bindir}/rd-curves
 rm %{buildroot}%{_bindir}/tests
 rm %{buildroot}%{_bindir}/yuv-distortion
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files
 %doc AUTHORS
@@ -101,6 +96,13 @@ rm %{buildroot}%{_bindir}/yuv-distortion
 %{_bindir}/acceleration_speed
 
 %changelog
+* Tue Nov 27 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.0.3-3
+- Remove Group tag
+- Switch to QT5
+- Update ldconfig scriptlet
+- Add BuildRequires gcc-c++
+- Remove BuildRequires pkgconfig
+
 * Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
