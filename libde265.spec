@@ -1,7 +1,7 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
-Version:	1.0.3
-Release:	5%{?dist}
+Version:	1.0.4
+Release:	1%{?dist}
 License:	LGPLv3+
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
 URL:		http://www.libde265.org/
@@ -96,6 +96,9 @@ rm %{buildroot}%{_bindir}/yuv-distortion
 %{_bindir}/acceleration_speed
 
 %changelog
+* Sun Dec 22 2019 Leigh Scott <leigh123linux@googlemail.com> - 1.0.4-1
+- Update to 1.0.4
+
 * Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 1.0.3-5
 - Rebuild for new ffmpeg version
 
