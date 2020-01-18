@@ -1,10 +1,11 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
-Version:	1.0.4
+Version:	1.0.5
 Release:	1%{?dist}
 License:	LGPLv3+
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
-URL:		http://www.libde265.org/
+URL:		https://www.libde265.org/
+
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gcc-c++
@@ -13,9 +14,6 @@ BuildRequires:	pkgconfig(libswscale)
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(sdl)
-
-# Fix compatibiliy when compiling against FFmpeg 2.9 and newer.
-Patch0:		ffmpeg_2.9.patch
 
 
 %description
@@ -62,8 +60,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 %install
 %make_install
-find %{buildroot} -type f -name '*.a' -exec rm -f {} \;
-find %{buildroot} -type f -name '*.la' -exec rm -f {} \;
+find %buildroot -name '*.la' -or -name '*.a' | xargs rm -f
 mv %{buildroot}%{_bindir}/dec265 %{buildroot}%{_bindir}/libde265-dec265
 mv %{buildroot}%{_bindir}/sherlock265 %{buildroot}%{_bindir}/libde265-sherlock265
 # Don't package internal development tools.
@@ -96,6 +93,9 @@ rm %{buildroot}%{_bindir}/yuv-distortion
 %{_bindir}/acceleration_speed
 
 %changelog
+* Sat Jan 18 2020 Leigh Scott <leigh123linux@googlemail.com> - 1.0.5-1
+- Update to 1.0.5
+
 * Sun Dec 22 2019 Leigh Scott <leigh123linux@googlemail.com> - 1.0.4-1
 - Update to 1.0.4
 
