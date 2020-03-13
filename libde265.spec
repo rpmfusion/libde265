@@ -11,8 +11,10 @@ BuildRequires:	automake
 BuildRequires:	gcc-c++
 BuildRequires:	libtool
 BuildRequires:	pkgconfig(libswscale)
+%ifnarch i686
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Gui)
+%endif
 BuildRequires:	pkgconfig(sdl)
 
 
@@ -34,7 +36,6 @@ API makes it easy to integrate it into other software.
 The development headers for compiling programs that use libde265
 are provided by this package.
 
-
 %package examples
 # The entire examples source code is GPLv3+ except extra/getopt* which is BSD.
 License:	GPLv3+ and BSD
@@ -48,12 +49,18 @@ API makes it easy to integrate it into other software.
 
 Sample applications using libde265 are provided by this package.
 
-
 %prep
 %autosetup -p1
 
 %build
-%configure --disable-silent-rules --disable-static --enable-shared
+%configure \
+ --disable-silent-rules \
+ --disable-static \
+%ifarch i686  x86_64
+ --disable-sherlock265 \
+%endif
+ --enable-shared
+
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build
@@ -62,16 +69,18 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_install
 find %buildroot -name '*.la' -or -name '*.a' | xargs rm -f
 mv %{buildroot}%{_bindir}/dec265 %{buildroot}%{_bindir}/libde265-dec265
+%ifnarch i686
 mv %{buildroot}%{_bindir}/sherlock265 %{buildroot}%{_bindir}/libde265-sherlock265
+%endif
 # Don't package internal development tools.
-rm %{buildroot}%{_bindir}/bjoentegaard
-rm %{buildroot}%{_bindir}/block-rate-estim
-rm %{buildroot}%{_bindir}/enc265
-rm %{buildroot}%{_bindir}/gen-enc-table
-rm %{buildroot}%{_bindir}/hdrcopy
-rm %{buildroot}%{_bindir}/rd-curves
-rm %{buildroot}%{_bindir}/tests
-rm %{buildroot}%{_bindir}/yuv-distortion
+rm -f %{buildroot}%{_bindir}/bjoentegaard
+rm -f %{buildroot}%{_bindir}/block-rate-estim
+rm -f %{buildroot}%{_bindir}/enc265
+rm -f %{buildroot}%{_bindir}/gen-enc-table
+rm -f %{buildroot}%{_bindir}/hdrcopy
+rm -f %{buildroot}%{_bindir}/rd-curves
+rm -f %{buildroot}%{_bindir}/tests
+rm -f %{buildroot}%{_bindir}/yuv-distortion
 
 %ldconfig_scriptlets
 
@@ -86,10 +95,13 @@ rm %{buildroot}%{_bindir}/yuv-distortion
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
+
 %files examples
 %doc README.md
 %{_bindir}/libde265-dec265
+%ifnarch i686
 %{_bindir}/libde265-sherlock265
+%endif
 %{_bindir}/acceleration_speed
 
 %changelog
