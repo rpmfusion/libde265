@@ -56,7 +56,7 @@ Sample applications using libde265 are provided by this package.
 %configure \
  --disable-silent-rules \
  --disable-static \
-%ifarch i686  x86_64
+%ifarch i686
  --disable-sherlock265 \
 %endif
  --enable-shared
