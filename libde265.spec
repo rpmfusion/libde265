@@ -1,7 +1,7 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
 Version:	1.0.8
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	LGPLv3+
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
 URL:		https://www.libde265.org/
@@ -105,6 +105,9 @@ rm -f %{buildroot}%{_bindir}/yuv-distortion
 %{_bindir}/acceleration_speed
 
 %changelog
+* Sun Feb 06 2022 Leigh Scott <leigh123linux@gmail.com> - 1.0.8-5
+- Rebuilt for ffmpeg
+
 * Tue Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.0.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
