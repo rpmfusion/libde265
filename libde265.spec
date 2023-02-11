@@ -1,6 +1,6 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
-Version:	1.0.9
+Version:	1.0.11
 Release:	1%{?dist}
 License:	LGPLv3+
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -105,6 +105,9 @@ rm -f %{buildroot}%{_bindir}/yuv-distortion
 %{_bindir}/acceleration_speed
 
 %changelog
+* Sat Feb 11 2023 Leigh Scott <leigh123linux@gmail.com> - 1.0.11-1
+- Update to 1.0.11
+
 * Tue Oct 18 2022 Leigh Scott <leigh123linux@gmail.com> - 1.0.9-1
 - Update to 1.0.9
 
