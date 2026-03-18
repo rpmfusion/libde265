@@ -6,16 +6,14 @@ License:	LGPLv3+
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
 URL:		https://www.libde265.org/
 
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	cmake
 BuildRequires:	gcc-c++
-BuildRequires:	libtool
 BuildRequires:	pkgconfig(libswscale)
 %ifnarch i686
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Gui)
 %endif
-BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(sdl2)
 
 
 %description
@@ -53,48 +51,32 @@ Sample applications using libde265 are provided by this package.
 %autosetup -p1
 
 %build
-%configure \
- --disable-silent-rules \
- --disable-static \
-%ifarch i686
- --disable-sherlock265 \
-%endif
- --enable-shared
+%cmake \
+ -DENABLE_SHERLOCK265=ON
 
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-%make_build
+%cmake_build
 
 %install
-%make_install
-find %buildroot -name '*.la' -or -name '*.a' | xargs rm -f
+%cmake_install
+
 mv %{buildroot}%{_bindir}/dec265 %{buildroot}%{_bindir}/libde265-dec265
 %ifnarch i686
 mv %{buildroot}%{_bindir}/sherlock265 %{buildroot}%{_bindir}/libde265-sherlock265
 %endif
-# Don't package internal development tools.
-rm -f %{buildroot}%{_bindir}/bjoentegaard
-rm -f %{buildroot}%{_bindir}/block-rate-estim
-rm -f %{buildroot}%{_bindir}/enc265
-rm -f %{buildroot}%{_bindir}/gen-enc-table
-rm -f %{buildroot}%{_bindir}/hdrcopy
-rm -f %{buildroot}%{_bindir}/rd-curves
-rm -f %{buildroot}%{_bindir}/tests
-rm -f %{buildroot}%{_bindir}/yuv-distortion
 
 %ldconfig_scriptlets
 
 %files
 %doc AUTHORS
 %license COPYING
-%{_libdir}/*.so.*
+%{_libdir}/libde265.so.*
 
 %files devel
 %doc README.md
 %{_includedir}/libde265/
-%{_libdir}/*.so
+%{_libdir}/libde265.so
 %{_libdir}/pkgconfig/*.pc
-
+%{_libdir}/cmake/libde265/
 
 %files examples
 %doc README.md
