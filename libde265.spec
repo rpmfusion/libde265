@@ -1,6 +1,6 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
-Version:	1.0.17
+Version:	1.0.18
 Release:	1%{?dist}
 License:	LGPLv3+
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -86,6 +86,9 @@ mv %{buildroot}%{_bindir}/sherlock265 %{buildroot}%{_bindir}/libde265-sherlock26
 %endif
 
 %changelog
+* Thu Mar 19 2026 Leigh Scott <leigh123linux@gmail.com> - 1.0.18-1
+- Update to 1.0.18
+
 * Wed Mar 18 2026 Leigh Scott <leigh123linux@gmail.com> - 1.0.17-1
 - Update to 1.0.17
 
