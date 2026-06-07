@@ -1,6 +1,6 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
-Version:	1.0.18
+Version:	1.1.1
 Release:	1%{?dist}
 License:	LGPLv3+
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -9,12 +9,9 @@ URL:		https://www.libde265.org/
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	pkgconfig(libswscale)
-%ifnarch i686
-BuildRequires:	pkgconfig(Qt5Core)
-BuildRequires:	pkgconfig(Qt5Gui)
-%endif
 BuildRequires:	pkgconfig(sdl2)
 
+Obsoletes:      %{name}-examples < %{version}-%{release}
 
 %description
 libde265 is an open source implementation of the H.265 video codec.
@@ -34,37 +31,16 @@ API makes it easy to integrate it into other software.
 The development headers for compiling programs that use libde265
 are provided by this package.
 
-%package examples
-# The entire examples source code is GPLv3+ except extra/getopt* which is BSD.
-License:	GPLv3+ and BSD
-Summary:	Open H.265 video codec implementation - examples
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-%description examples
-libde265 is an open source implementation of the H.265 video codec.
-It is written from scratch for simplicity and efficiency. Its simple
-API makes it easy to integrate it into other software.
-
-Sample applications using libde265 are provided by this package.
-
 %prep
 %autosetup -p1
 
 %build
 %cmake \
- -DENABLE_SHERLOCK265=ON
-
+ -DENABLE_DECODER=OFF
 %cmake_build
 
 %install
 %cmake_install
-
-mv %{buildroot}%{_bindir}/dec265 %{buildroot}%{_bindir}/libde265-dec265
-%ifnarch i686
-mv %{buildroot}%{_bindir}/sherlock265 %{buildroot}%{_bindir}/libde265-sherlock265
-%endif
-
-%ldconfig_scriptlets
 
 %files
 %doc AUTHORS
@@ -78,14 +54,11 @@ mv %{buildroot}%{_bindir}/sherlock265 %{buildroot}%{_bindir}/libde265-sherlock26
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/cmake/libde265/
 
-%files examples
-%doc README.md
-%{_bindir}/libde265-dec265
-%ifnarch i686
-%{_bindir}/libde265-sherlock265
-%endif
-
 %changelog
+* Sun Jun 07 2026 Leigh Scott <leigh123linux@gmail.com> - 1.1.1-1
+- Update to 1.1.1
+- Drop examples sub package
+
 * Thu Mar 19 2026 Leigh Scott <leigh123linux@gmail.com> - 1.0.18-1
 - Update to 1.0.18
 
