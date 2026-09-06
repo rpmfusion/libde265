@@ -8,7 +8,6 @@ URL:		https://www.libde265.org/
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
-BuildRequires:	pkgconfig(sdl2)
 
 Obsoletes:      %{name}-examples < %{version}-%{release}
 
