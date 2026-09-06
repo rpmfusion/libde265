@@ -1,7 +1,7 @@
 Name:		libde265
 Summary:	Open H.265 video codec implementation
-Version:	1.1.1
-Release:	2%{?dist}
+Version:	1.1.2
+Release:	1%{?dist}
 License:	LGPLv3+
 Source:		https://github.com/strukturag/libde265/releases/download/v%{version}/%{name}-%{version}.tar.gz
 URL:		https://www.libde265.org/
@@ -55,6 +55,9 @@ are provided by this package.
 %{_libdir}/cmake/libde265/
 
 %changelog
+* Sun Sep 06 2026 Leigh Scott <leigh123linux@gmail.com> - 1.1.2-1
+- Update to 1.1.2
+
 * Sun Aug 02 2026 RPM Fusion Release Engineering <leigh123linux@rpmfusion.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
